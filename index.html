@@ -8,16 +8,17 @@
   .main-app { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
   .btn { display: block; width: 100%; padding: 18px; background: #0ea5e9; border: none; border-radius: 12px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
   #login-layer { position: fixed; top:0; left:0; width:100%; height:100%; background: #0b1329; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-  .input-box { padding: 12px; width: 100%; max-width: 300px; border-radius: 8px; border: none; text-align: right; margin-bottom: 12px; font-size: 16px; }
+  .input-box { padding: 12px; width: 100%; max-width: 300px; border-radius: 8px; border: 1px solid #334155; background: #111e38; color: white; text-align: right; margin-bottom: 12px; font-size: 15px; }
   .points-card { background: #111e38; border: 1px solid #1e3a8a; border-radius: 14px; padding: 16px; text-align: center; margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
 <div id="login-layer">
-  <h3 style="color:#fbbf24;">تسجيل الدخول</h3>
-  <input type="text" id="user" class="input-box" placeholder="أدخل اسمك أو بريدك">
-  <button onclick="doLogin()" class="btn" style="max-width: 300px;">دخول</button>
+  <h3 style="color:#fbbf24; margin-bottom: 15px;">إنشاء حساب جديد</h3>
+  <input type="email" id="userEmail" class="input-box" placeholder="أدخل البريد الإلكتروني (Gmail)">
+  <input type="password" id="userPass" class="input-box" placeholder="كلمة السر (4 أحرف أو أرقام على الأقل)">
+  <button onclick="doLogin()" class="btn" style="max-width: 300px;">إنشاء الحساب والدخول</button>
 </div>
 
 <div class="main-app">
@@ -35,7 +36,7 @@
 
 <script>
   window.onload = function() {
-    let savedUser = localStorage.getItem('app_user');
+    let savedUser = localStorage.getItem('app_email');
     if (!savedUser) {
       document.getElementById('login-layer').style.display = 'flex';
     } else {
@@ -45,16 +46,23 @@
   };
 
   function doLogin() {
-    let u = document.getElementById('user').value.trim();
-    if (u.length > 0) {
-      localStorage.setItem('app_user', u);
-      if(!localStorage.getItem('app_pts')) {
-        localStorage.setItem('app_pts', '0');
-      }
-      location.reload();
-    } else {
-      alert("الرجاء إدخال اسم صحيح");
+    let email = document.getElementById('userEmail').value.trim();
+    let pass = document.getElementById('userPass').value.trim();
+    
+    if (!email.includes('@') || email.length < 5) {
+      alert("❌ يرجى إدخال بريد إلكتروني (Gmail) صحيح");
+      return;
     }
+    if (pass.length < 4) {
+      alert("❌ كلمة السر يجب أن تكون 4 خانات على الأقل");
+      return;
+    }
+
+    localStorage.setItem('app_email', email);
+    if(!localStorage.getItem('app_pts')) {
+      localStorage.setItem('app_pts', '0');
+    }
+    location.reload();
   }
 
   function getGift() {
