@@ -5,6 +5,70 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+        #withdraw-section {
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 2px solid #eee;
+    text-align: center;
+}
+
+.withdraw-method {
+    margin-bottom: 15px;
+}
+
+.withdraw-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 300px; /* لجعل الأزرار متناسقة */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.withdraw-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.payment-icon {
+    width: 30px;  /* حجم الصور */
+    height: 30px; /* حجم الصور */
+    margin-right: 15px; /* مسافة بين الصورة والكتابة */
+    object-fit: contain;
+}
+
+.details-content {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.details-content input {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.confirm-btn {
+    background-color: #27ae60; /* لون أخضر لتأكيد الطلب */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
   body { background-color: #0b1329; color: white; font-family: sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; }
   .main-app { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
   .btn { display: block; width: 100%; padding: 18px; background: #0ea5e9; border: none; border-radius: 12px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
@@ -89,5 +153,69 @@
     location.reload();
   }
 </script>
+
+    <!-- باقي محتوى الصفحة القديم عندك -->
+    <div id="login-layer">
+        <h3 style="color:#Fbbf24; margin-bottom: 15px;">إشاء حساب جديد</h3>
+    </div>
+
+    <!-- اخليه هنا جوه الـ body: قسم وسائل السحب -->
+    <section id="withdraw-section">
+        <h2>وسائل سحب الأرباح</h2>
+        <p>اختر طريقة السحب المفضلة لديك:</p>
+
+        <!-- خيار رصيد آسيا سييل -->
+        <div class="withdraw-method">
+            <button class="withdraw-btn" onclick="toggleDetails('asiacell-details')">
+                <img src="[رابط شعار آسيا سييل]" alt="Asiacell" class="payment-icon">
+                رصيد آسيا سييل (5$)
+            </button>
+            <div id="asiacell-details" class="details-content" style="display: none;">
+                <p>أدخل رقم هاتفك لإرسال الرصيد:</p>
+                <input type="text" placeholder="0770xxxxxxx">
+                <button class="confirm-btn">إرسال الطلب</button>
+            </div>
+        </div>
+
+        <!-- خيار بطاقة جوجل بلاي -->
+        <div class="withdraw-method">
+            <button class="withdraw-btn" onclick="toggleDetails('googleplay-details')">
+                <img src="[رابط بطاقة جوجل بلاي]" alt="Google Play" class="payment-icon">
+                بطاقة جوجل بلاي (5$)
+            </button>
+            <div id="googleplay-details" class="details-content" style="display: none;">
+                <p>سيتم إرسال الكود إلى إيميلك:</p>
+                <button class="confirm-btn">تأكيد الطلب</button>
+            </div>
+        </div>
+
+        <!-- خيار بطاقة الماستر كارد -->
+        <div class="withdraw-method">
+            <button class="withdraw-btn" onclick="toggleDetails('mastercard-details')">
+                <img src="[رابط شعار الماستر كارد]" alt="Mastercard" class="payment-icon">
+                بطاقة ماستر كارد / زين كاش
+            </button>
+            <div id="mastercard-details" class="details-content" style="display: none;">
+                <p>أدخل رقم البطاقة أو المحفظة:</p>
+                <input type="text" placeholder="أدخل الرقم هنا...">
+                <button class="confirm-btn">إرسال الطلب</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- كود الجافاسكريبت للفتح والإغلاق -->
+    <script>
+        function toggleDetails(detailsId) {
+            var content = document.getElementById(detailsId);
+            if (content.style.display === "none") {
+                var allDetails = document.querySelectorAll('.details-content');
+                allDetails.forEach(function(detail) { detail.style.display = "none"; });
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
+
 </body>
 </html>
