@@ -1,0 +1,15 @@
+{
+  "name": "Lux Earn",
+  "short_name": "Lux",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1329",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063186.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
