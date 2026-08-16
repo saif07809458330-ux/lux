@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { background-color: #0b1329; color: white; font-family: sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; }
+  .main-app { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
+  .btn { display: block; width: 100%; padding: 18px; background: #0ea5e9; border: none; border-radius: 12px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
+  #login-layer { position: fixed; top:0; left:0; width:100%; height:100%; background: #0b1329; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+  .input-box { padding: 12px; width: 100%; max-width: 300px; border-radius: 8px; border: none; text-align: right; margin-bottom: 12px; font-size: 16px; }
+  .points-card { background: #111e38; border: 1px solid #1e3a8a; border-radius: 14px; padding: 16px; text-align: center; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<div id="login-layer">
+  <h3 style="color:#fbbf24;">تسجيل الدخول</h3>
+  <input type="text" id="user" class="input-box" placeholder="أدخل اسمك أو بريدك">
+  <button onclick="doLogin()" class="btn" style="max-width: 300px;">دخول</button>
+</div>
+
+<div class="main-app">
+  <div class="points-card">
+    <h3 style="margin:0; color:#fbbf24;">⭐ نقاطك</h3>
+    <p style="font-size: 26px; font-weight: bold; color: #38bdf8; margin: 5px 0 0 0;" id="points">0</p>
+  </div>
+  
+  <a href="https://www.mobilerewards.link/wall/n6q5WwGF" target="_blank" class="btn">🚀 ابدأ الربح</a>
+  <button onclick="getGift()" class="btn">🎁 الجوائز</button>
+  <a href="https://t.me/syf5v5f1" target="_blank" class="btn">👥 المجتمع</a>
+  <button onclick="alert('الحد الأدنى للسحب 500 نقطة')" class="btn">💵 سحب</button>
+  <button onclick="doLogout()" class="btn" style="background:#dc2626;">تسجيل خروج / حذف الحساب</button>
+</div>
+
+<script>
+  window.onload = function() {
+    let savedUser = localStorage.getItem('app_user');
+    if (!savedUser) {
+      document.getElementById('login-layer').style.display = 'flex';
+    } else {
+      document.getElementById('login-layer').style.display = 'none';
+      document.getElementById('points').innerText = localStorage.getItem('app_pts') || '0';
+    }
+  };
+
+  function doLogin() {
+    let u = document.getElementById('user').value.trim();
+    if (u.length > 0) {
+      localStorage.setItem('app_user', u);
+      if(!localStorage.getItem('app_pts')) {
+        localStorage.setItem('app_pts', '0');
+      }
+      location.reload();
+    } else {
+      alert("الرجاء إدخال اسم صحيح");
+    }
+  }
+
+  function getGift() {
+    let last = localStorage.getItem('lastDate');
+    let today = new Date().toDateString();
+    if (last === today) { 
+      alert("تم استلام الجائزة اليوم، عد غداً!"); 
+      return; 
+    }
+    
+    let current = parseInt(localStorage.getItem('app_pts') || '0');
+    let reward = Math.floor(Math.random() * 10) + 1;
+    let newTotal = current + reward;
+    
+    localStorage.setItem('app_pts', newTotal);
+    localStorage.setItem('lastDate', today);
+    document.getElementById('points').innerText = newTotal;
+    alert("مبروك! ربحت " + reward + " نقطة");
+  }
+
+  function doLogout() {
+    localStorage.clear();
+    location.reload();
+  }
+</script>
+</body>
+</html>
